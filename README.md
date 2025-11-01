@@ -4,6 +4,10 @@
 pip install djangorestframework
 ```
 
+```commandline
+ python manage.py startapp your_app_name
+```
+
 # Действия с БД
 
 
@@ -19,6 +23,7 @@ python manage.py createsuperuser
 python manage.py createsuperuser
 ```
 
+python manage.py runserver
 
 ## Создание сурер-пользователя
 ```commandline
