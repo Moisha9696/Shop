@@ -1,10 +1,13 @@
+import logging
 from decimal import Decimal
 from django.conf import settings
 from main.models import Product
 
+logger = logging.getLogger(__name__)
 
 class Cart:
     def __init__(self, request):
+        logger.info("__init__")
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
@@ -12,6 +15,7 @@ class Cart:
         self.cart = cart
 
     def add(self, product, quantity=1, override_quantity=False):
+        logger.info(f"add : {product}")
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0,
@@ -32,6 +36,7 @@ class Cart:
             self.save()
 
     def __iter__(self):
+        logger.info("__iter__")
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
@@ -49,7 +54,11 @@ class Cart:
         del self.session[settings.CART_SESSION_ID]
 
     def get_total_price(self):
-        total = sum((Decimal(item['price']) - (Decimal(item['price']) \
-                                               * Decimal(item['product'].discount / 100))) * item['quantity']
+        logger.info("get_total_price")
+        for item in self.cart.values():
+            logger.info(f"ЦЕНА: {item['price']}, {item['quantity']}")
+
+        total = sum((Decimal(item['price'])) * item['quantity']
                     for item in self.cart.values())
+        logger.info(f"get_total_price, total : {total}")
         return format(total, '.2f')

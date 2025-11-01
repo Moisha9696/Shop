@@ -7,6 +7,7 @@
         <a href="" class="home-card d-flex flex-column align-items-center text-center">
             <h5 class="title-card">{{ product.name }}</h5>
         </a>
+        Цена: {{ product.price }}
         <form action="{% url "cart:cart_add" product.id %}" class="qform" method="post">
             <div class="cart-form">
                 {{ cart_product_form }}
