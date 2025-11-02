@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 
 class Cart:
     def __init__(self, request):
-        logger.info("__init__")
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:

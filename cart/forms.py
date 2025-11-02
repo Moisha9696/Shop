@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(
         choices=PRODUCT_QUANTITY_CHOICES,
-        coerce=int
+        coerce=int,
+        label='Количество'
     )
     override = forms.BooleanField(required=False,
                                   initial=False,

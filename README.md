@@ -5,7 +5,12 @@ pip install djangorestframework
 ```
 
 ```commandline
- python manage.py startapp your_app_name
+python manage.py startapp your_app_name
+```
+
+# Запуск сервера
+```commandline
+python manage.py runserver
 ```
 
 # Действия с БД
@@ -14,13 +19,13 @@ pip install djangorestframework
 ## Создание миграции 
 
 ```commandline
-python manage.py createsuperuser
+python manage.py makemigrations
 ```
 
 ## Применение миграции 
 
 ```commandline
-python manage.py createsuperuser
+python manage.py migrate
 ```
 
 python manage.py runserver

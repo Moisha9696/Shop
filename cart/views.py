@@ -18,14 +18,10 @@ def cart_add(request, product_id):
     logging.info(f"Добавляем в конзину продукт {product}")
     form = CartAddProductForm(request.POST)
     if form.is_valid():
-        logging.info("IS_VALID")
         cd = form.cleaned_data
         cart.add(product=product,
                  quantity=cd['quantity'],
                  override_quantity=cd['override'])
-    else:
-        logging.info("NOT IS_VALID")
-        logger.info(form.errors)
     return redirect('cart:cart_detail')
 
 @require_POST
