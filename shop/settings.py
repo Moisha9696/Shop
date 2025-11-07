@@ -140,5 +140,3 @@ LOGGING = {
         'level': 'DEBUG',  # Или 'INFO' в production
     },
 }
-
-
