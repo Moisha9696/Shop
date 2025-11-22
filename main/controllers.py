@@ -15,3 +15,8 @@ class ProductController:
     def get_all():
         logger.info("Получение всех продуктов")
         return Product.objects.all().order_by('name')
+
+    @staticmethod
+    def get_by_category(category):
+        logger.info("Получение всех продуктов для категории ")
+        return Product.objects.filter(category=category).order_by('name')

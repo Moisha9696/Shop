@@ -27,8 +27,10 @@ python manage.py makemigrations
 ```commandline
 python manage.py migrate
 ```
-
+# Запуск сервера
+```commandline
 python manage.py runserver
+```
 
 ## Создание сурер-пользователя
 ```commandline
