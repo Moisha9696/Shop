@@ -26,7 +26,7 @@
     {% with total_items=orders_count|length %}
         {% if total_items > 0 %}
             <a href="{% url "orders:order_list" %}">
-                Мои заказы {{ total_items }}
+    Мои заказы
             </a>
         {% else %}
         {% endif %}
