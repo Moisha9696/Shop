@@ -13,8 +13,7 @@
                 <h5 class="title-card">{{ product.name }}</h5>
             </a>
             <p class="price">Цена: {{ product.price }}</p>
-            <form action="{% url " cart:cart_add
-            " product.id %}" class="qform" method="post">
+            <form action="{% url "cart:cart_add" product.id %}" class="qform" method="post">
             <div class="cart-form">
                 {{ cart_product_form }}
                 {% csrf_token %}

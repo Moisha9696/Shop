@@ -1,6 +1,5 @@
 import logging
-
-from django.shortcuts import render,  get_object_or_404
+from django.shortcuts import render, get_object_or_404
 
 from cart.forms import CartAddProductForm
 from .controllers import CategoryController, ProductController
@@ -48,3 +47,17 @@ def product_detail(request):
                       'categories': categories,
                       'cart_product_form': cart_product_form
                   })
+
+
+def session_order_detail(request, order_id):
+    """Детали заказа с проверкой принадлежности к сессии"""
+    if not request.session.session_key:
+        raise Http404("Заказ не найден")
+
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+        session_key=request.session.session_key
+    )
+
+    return render(request, 'orders/order_detail.html', {'order': order})

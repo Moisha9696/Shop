@@ -1,8 +1,12 @@
+import logging
 from django.shortcuts import render, get_object_or_404
-from .models import OrderItem, Order
-from .forms import OrderCreateForm
-from cart.cart import Cart, logger
 
+from cart.cart import Cart
+from emails.utils import send_order_created_email, send_admin_notification
+from .forms import OrderCreateForm
+from .models import OrderItem, Order
+
+logger = logging.getLogger(__name__)
 
 def order_create(request):
     cart = Cart(request)
@@ -40,6 +44,16 @@ def order_create(request):
             cart.clear()
             # launch asynchronous task
             #order_created.delay(order.id)
+
+            # Отправляем email клиенту
+            email_sent = send_order_created_email(order)
+            if email_sent:
+                logger.info('Письмо с деталями заказа отправлено на вашу почту')
+            else:
+                logger.warning('Не удалось отправить письмо с деталями заказа')
+
+            logger.info(f'Заказ #{order.id} успешно создан!')
+
             return render(request,
                           'orders/order/created.html',
                           {'order': order})
