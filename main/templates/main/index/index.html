@@ -2,9 +2,11 @@
 {% load static %}
 
 {% block products %}
-<div class="product-list">
-    <div class="card-container d-flex flex-wrap">
-        <h1>{% if category %}{{ category.name }}{% else %}Продукты{% endif %}</h1>
+<div class="products-container">
+    <div class="category-header">
+         <h1>{% if category %}{{ category.name }}{% else %}Все продукты{% endif %}</h1>
+    </div>
+    <div class="product-list">
         {% for product in products %}
         <div class="product-detail">
             <img src="{% if product.image %}{{ product.image.url }}{% else %}
@@ -23,7 +25,6 @@
         </div>
         {% endfor %}
     </div>
-</div>
 </div>
 
 {% endblock %}
