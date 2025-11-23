@@ -3,9 +3,10 @@
 {% block title %}Мои заказы{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Мои заказы</h1>
-
+<div class="order_list">
+    <div class="title">
+        <h1>Мои заказы</h1>
+    </div>
     {% if not is_authenticated %}
         <div class="alert alert-info">
             <h4>Просмотр заказов по сессии</h4>
