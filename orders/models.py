@@ -1,7 +1,19 @@
 from django.db import models
 from main.models import Product
+from django.contrib.auth.models import User
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Ожидает обработки'),
+        ('processing', 'В обработке'),
+        ('shipped', 'Отправлен'),
+        ('delivered', 'Доставлен'),
+        ('cancelled', 'Отменен'),
+    ]
+
+    session_key = models.CharField(max_length=40, db_index=True, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+
     first_name = models.CharField(max_length=50)
 
     last_name = models.CharField(max_length=50)
@@ -12,6 +24,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
     class Meta:
         ordering = ['-created']

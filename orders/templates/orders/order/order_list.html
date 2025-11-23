@@ -1,0 +1,87 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Мои заказы</h1>
+
+    {% if not is_authenticated %}
+        <div class="alert alert-info">
+            <h4>Просмотр заказов по сессии</h4>
+            <p>Вы просматриваете заказы, связанные с вашей текущей сессией браузера.</p>
+        </div>
+    {% endif %}
+
+    {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>№ Заказа</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th>Сумма</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>#{{ order.id }}</td>
+                        <td>{{ order.created|date:"d.m.Y H:i" }}</td>
+                        <td>
+                            <span class="badge
+                                {% if order.status == 'delivered' %}bg-success
+                                {% elif order.status == 'cancelled' %}bg-danger
+                                {% elif order.status == 'processing' %}bg-warning
+                                {% else %}bg-secondary{% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ order.get_total_cost }} руб.</td>
+                        <td>
+                            <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-sm btn-outline-primary">
+                                Подробнее
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <!-- Блок для пустого списка -->
+        <div class="empty-state text-center py-5">
+            <div class="empty-state-icon">
+                <i class="fas fa-shopping-bag fa-4x text-muted"></i>
+            </div>
+            <h3 class="mt-4">Заказов не найдено</h3>
+
+            {% if not is_authenticated %}
+                <p class="text-muted">
+                    У вас нет заказов в текущей сессии.<br>
+                    Возможно, вы очистили cookies или используете другой браузер.
+                </p>
+                <div class="mt-4">
+                    <p><strong>Как посмотреть свои заказы?</strong></p>
+                    <ul class="list-unstyled">
+                        <li>✓ Создайте новый заказ в корзине</li>
+                        <li>✓ Войдите в аккаунт для постоянного доступа</li>
+                        <li>✓ Не очищайте cookies браузера</li>
+                    </ul>
+                </div>
+            {% else %}
+                <p class="text-muted">У вас пока нет заказов.</p>
+            {% endif %}
+
+            <div class="mt-4">
+                <a href="{% url 'product_list' %}" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i>
+                    Начать покупки
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
