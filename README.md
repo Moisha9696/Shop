@@ -41,3 +41,15 @@ python manage.py createsuperuser
 нужно сделать следующие шаги
 1. [Создание миграции](Создание миграции)
 2. [Применение миграции](Применение миграции)
+
+### тестирование почты
+
+```commandline
+python manage.py shell
+```
+
+```commandline
+from django.core.mail import EmailMessage   
+email = EmailMessage(subject='Subject',body='This is the body of the email.',to=['ayukhovich@gmail.com']) 
+email.send()
+```
