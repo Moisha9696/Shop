@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #f8f9fa; padding: 20px; text-align: center; }
+        .status-new { background: #28a745; color: white; }
+        .status-processing { background: #17a2b8; color: white; }
+        .status-shipped { background: #007bff; color: white; }
+        .status-delivered { background: #6c757d; color: white; }
+        .status-cancelled { background: #dc3545; color: white; }
+        .status { display: inline-block; padding: 5px 10px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Статус вашего заказа изменен</h1>
+        </div>
+
+        <div class="order-info">
+            <p>Здравствуйте, {{ order.first_name }} {{ order.last_name }}!</p>
+
+            <p>Статус вашего заказа <strong>#{{ order.id }}</strong> был изменен на:</p>
+
+            <p><span class="status status-{{ order.status }}">{{ order.get_status_display }}</span></p>
+
+            {% if order.status == 'shipped' %}
+            <p>Ваш заказ был отправлен. Ожидайте доставки.</p>
+            {% elif order.status == 'delivered' %}
+            <p>Ваш заказ был доставлен. Благодарим за покупку!</p>
+            {% elif order.status == 'cancelled' %}
+            <p>Если у вас возникли вопросы по отмене заказа, пожалуйста, свяжитесь с нами.</p>
+            {% endif %}
+
+            <p>Подробности заказа вы можете посмотреть по ссылке:</p>
+            <p><a href="{{ site_url }}{% url 'session_order_detail' order.id %}">Посмотреть заказ #{{ order.id }}</a></p>
+
+            <p>С уважением,<br>Команда магазина</p>
+        </div>
+    </div>
+</body>
+</html>

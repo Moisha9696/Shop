@@ -146,3 +146,9 @@ LOGGING = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+SITE_URL = 'LOCALHOST'
+# settings.py
+
+# Для разработки - использовать консольный бэкенд
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

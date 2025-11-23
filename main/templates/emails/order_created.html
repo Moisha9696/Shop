@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #f8f9fa; padding: 20px; text-align: center; }
+        .order-info { background: #fff; padding: 20px; border: 1px solid #ddd; }
+        .order-items { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .order-items th, .order-items td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        .order-items th { background: #f8f9fa; }
+        .total { font-weight: bold; font-size: 1.2em; }
+        .status { display: inline-block; padding: 5px 10px; background: #ffc107; color: #000; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Заказ #{{ order.id }} успешно создан!</h1>
+        </div>
+
+        <div class="order-info">
+            <p>Здравствуйте, {{ order.first_name }} {{ order.last_name }}!</p>
+            <p>Благодарим вас за заказ в нашем магазине. Вот детали вашего заказа:</p>
+
+            <h3>Информация о заказе:</h3>
+            <p><strong>Номер заказа:</strong> #{{ order.id }}</p>
+            <p><strong>Дата создания:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+            <p><strong>Статус:</strong> <span class="status">{{ order.get_status_display }}</span></p>
+            <p><strong>Телефон:</strong> {{ order.phone }}</p>
+            <p><strong>Адрес доставки:</strong> {{ order.address }}</p>
+
+            <h3>Состав заказа:</h3>
+            <table class="order-items">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Кол-во</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product_name }}</td>
+                        <td>{{ item.price }} ₽</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.get_total }} ₽</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align: right;"><strong>Итого:</strong></td>
+                        <td class="total">{{ order.total_amount }} ₽</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3>Отслеживание заказа</h3>
+            <p>Вы можете отслеживать статус вашего заказа по ссылке:</p>
+            <p><a href="{{ site_url }}{% url 'orders:order_detail' order.id %}">{{ site_url }}{% url 'orders:order_detail' order.id %}</a></p>
+
+            <p>Если у вас возникли вопросы, пожалуйста, ответьте на это письмо.</p>
+
+            <p>С уважением,<br>Команда магазина</p>
+        </div>
+    </div>
+</body>
+</html>
