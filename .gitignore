@@ -208,5 +208,6 @@ marimo/_lsp/
 __marimo__/
 
 # Database migrations (опционально - только если хотите игнорировать миграции)
-*/migrations/*.py
-!*/migrations/__init__.py
+
+
+media/*
