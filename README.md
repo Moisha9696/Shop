@@ -1,7 +1,7 @@
 # Устновка Django
 
 ```commandline
-pip install djangorestframework
+pip install django
 ```
 
 ```commandline
