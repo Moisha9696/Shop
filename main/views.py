@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 from cart.forms import CartAddProductForm
 from .controllers import CategoryController, ProductController
-from .models import Category
+from .models import Category, Product
 
 logger = logging.getLogger(__name__)
 
@@ -36,14 +36,17 @@ def product_list(request, category_slug):
                       'cart_product_form': cart_product_form
                   })
 
-def product_detail(request):
-    products = ProductController.get_all()
+def product_detail(request, id, slug):
+    product = get_object_or_404(
+        Product, id=id, slug=slug, available=True
+    )
+
     categories = CategoryController.get_all()
     cart_product_form = CartAddProductForm()
     return render(request,
-                  'main/index/index.html',
+                  'main/product/detail.html',
                   {
-                      'products': products,
+                      'product': product,
                       'categories': categories,
                       'cart_product_form': cart_product_form
                   })

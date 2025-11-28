@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 class CategoryController:
     @staticmethod
     def get_all():
-        logger.info("Retrieving all categories ordered by name")
+        logger.info("Получение всех кателогий")
         return Category.objects.all().order_by('name')
 
 

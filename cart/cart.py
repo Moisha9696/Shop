@@ -35,7 +35,6 @@ class Cart:
             self.save()
 
     def __iter__(self):
-        logger.info("__iter__")
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
@@ -50,14 +49,13 @@ class Cart:
         return sum(item['quantity'] for item in self.cart.values())
 
     def clear(self):
+        logger.info("Очистка корзины")
         del self.session[settings.CART_SESSION_ID]
 
     def get_total_price(self):
-        logger.info("get_total_price")
         for item in self.cart.values():
             logger.info(f"ЦЕНА: {item['price']}, {item['quantity']}")
 
         total = sum((Decimal(item['price'])) * item['quantity']
                     for item in self.cart.values())
-        logger.info(f"get_total_price, total : {total}")
         return format(total, '.2f')

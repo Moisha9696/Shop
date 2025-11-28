@@ -13,28 +13,39 @@
       <a href="/" class="logo">Магазин</a>
     </div>
     <div id="subheader">
-<div class="cart">
-    {% with total_items=cart|length %}
-    {% if total_items > 0 %}
-    Ваша корзина:
-    <a href="{% url "cart:cart_detail" %}">
-        {{ total_items }} товар  {{ total_items|pluralize }}, ${{ cart.get_total_price }}
-    </a>
-    {% else %}
-    Ваша корзина пуста
-    {% endif %}
-    {% endwith %}
-</div>
-<div class="orders">
-    {% with total_items=orders_count|length %}
-        {% if total_items > 0 %}
-            <a href="{% url "orders:order_list" %}">
-    Мои заказы
+        <div class="cart">
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+            Ваша корзина:
+            <a href="{% url "cart:cart_detail" %}">
+                {{ total_items }} товар  {{ total_items|pluralize }}, ${{ cart.get_total_price }}
             </a>
-        {% else %}
-        {% endif %}
-    {% endwith %}
-</div>
+            {% else %}
+            Ваша корзина пуста
+            {% endif %}
+            {% endwith %}
+        </div>
+        <div class="orders">
+            {% with total_items=orders_count %}
+                {% if total_items > 0 %}
+                    <a href="{% url "orders:order_list" %}">Мои заказы</a>
+                {% else %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="user">
+          {% if request.user.is_authenticated %}
+            Пользователь: {{ request.user.first_name|default:request.user.username }},
+            <form action="{% url "users:logout" %}" method="post">
+              <button type="submit">Выход</button>
+              {% csrf_token %}
+            </form>
+          {% else %}
+            <a href="{% url "users:login" %}">Войти</a>
+            &nbsp;/&nbsp;
+            <a href="{% url "users:register" %}">Регистрация</a>
+          {% endif %}
+        </div>
     </div>
 <div id="content">
     {% block content %}

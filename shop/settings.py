@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = [
+    'users.authentication.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Application definition
 
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
     'main',
     'cart',
     'orders',
@@ -155,3 +160,9 @@ SITE_URL = 'LOCALHOST'
 
 # Для разработки - использовать консольный бэкенд
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

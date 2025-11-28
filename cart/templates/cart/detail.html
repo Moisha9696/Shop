@@ -45,7 +45,7 @@
             <h5>Общая сумма: $ {{ cart.get_total_price }}</h5>
         </div>
         <div class="cart-buttons d-flex gap-3">
-            <a href="{% url "main:all" %}" class="cart-btn">Продолжить покупки</a>
+            <a href="{% url "main:home" %}" class="cart-btn">Продолжить покупки</a>
             {% with cart_quantity=cart|length %}
                 {% if cart_quantity > 0 %}
                     <a href="{% url "orders:order_create" %}" class="cart-btn">Оплатить</a>
