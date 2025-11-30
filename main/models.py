@@ -96,6 +96,6 @@ class Product(models.Model):
         return f"Продукт {self.name}, Цена : {self.price}"
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', args=[self.id, self.slug])
+        return reverse('main:product_detail', args=[self.id, self.slug])
 
 

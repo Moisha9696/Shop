@@ -6,12 +6,10 @@
     <div class="category-header">
          <h1>{% if category %}{{ category.name }}{% else %}Все продукты{% endif %}</h1>
     </div>
-    <div class="product-list">
-        {% for product in products %}
         <div class="product-detail">
             <img src="{% if product.image %}{{ product.image.url }}{% else %}
                  {% static " img/no_image.png" %}{% endif %}">
-            <a href="{{ product.get_absolute_url }}" class="home-card d-flex flex-column align-items-center text-center">
+            <a href="" class="home-card d-flex flex-column align-items-center text-center">
                 <h5 class="title-card">{{ product.name }}</h5>
             </a>
             <p class="price">Цена: {{ product.price }}</p>
@@ -22,9 +20,8 @@
             </div>
             <input type="submit" class="add-to-cart-btn" value="Добавить в корзину">
             </form>
+	    {{ product.description|linebreaks }}
         </div>
-        {% endfor %}
-    </div>
 </div>
 
 {% endblock %}

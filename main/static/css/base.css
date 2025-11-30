@@ -122,13 +122,6 @@ ul.errorlist {
     overflow:auto;
 }
 
-#subheader {
-    background:#ececec;
-    color:#444;
-    padding:15px 100px;
-    overflow:auto;
-}
-
 #header .logo {
     font-family: 'Ubuntu', sans-serif;
     float:left;
@@ -137,10 +130,6 @@ ul.errorlist {
     margin-right:10%;
 }
 
-#subheader .cart {
-    float:right;
-    padding-top:4px;
-}
 
 #content {
     padding:0 100px;
@@ -483,4 +472,48 @@ form div.field {
 .categories-sidebar li.selected a {
   background: #007bff;
   color: white;
+}
+
+#subheader {
+    background: #ececec;
+    color: #444;
+    padding: 15px 100px;
+    overflow: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#subheader .orders {
+    float: left;
+}
+
+#subheader .right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#subheader .cart {
+    padding-top: 4px;
+}
+
+#subheader .user {
+    padding-top: 4px;
+}
+
+#subheader .user form {
+    display: inline;
+}
+
+#subheader .user button {
+    background: none;
+    color: #5993bb;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+#subheader .user button:hover {
+    color: #77b6e2;
 }
