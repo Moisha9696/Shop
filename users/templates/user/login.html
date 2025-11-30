@@ -4,11 +4,10 @@
 {% block title %}Вход{% endblock title %}
 
 {% block content %}
-  <h1>Log-in</h1>
-  <p>Please, use the following form to log-in:</p>
+  <h1>Вход</h1>
   <form method="post">
     {{ form.as_p }}
     {% csrf_token %}
-    <p><input type="submit" value="Log in"></p>
+    <p><input type="submit" value="Войти"></p>
   </form>
 {% endblock %}

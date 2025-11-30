@@ -1,0 +1,23 @@
+{% extends 'main/baseWithCatelogies.html' %}
+{% load static %}
+
+{% block title %}Поиск{% endblock %}
+
+{% block content %}
+<form method="get" action="{% url 'search:search_results' %}" class="search-form">
+    <div class="form-group">
+        <label for="search_query" class="search-label">Найти продукты где есть текст:</label>
+        <div class="input-group">
+            <input type="text"
+                   id="search_query"
+                   name="q"
+                   value="{{ request.GET.q }}"
+                   placeholder="Введите текст для поиска..."
+                   class="form-control search-input">
+            <button type="submit" class="btn btn-primary search-button">
+                Найти
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}
